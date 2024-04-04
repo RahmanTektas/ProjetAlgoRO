@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" name="Changes" comment="initial commit" />
+    <list default="true" id="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" name="Changes" comment="initial commit">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ProjetAlgoRO.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ProjetAlgoRO.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_model.py" afterDir="false" />
+    </list>
+    <list id="23eb3d33-bce9-4c28-b6b1-b713671326de" name="Changes by Rahman" comment="">
+      <change beforePath="$PROJECT_DIR$/generate_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_model.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +28,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/generate_model.py">
+      <ranges>
+        <range start1="10" end1="10" start2="10" end2="16" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="20" end1="21" start2="26" end2="27" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="22" end1="23" start2="28" end2="57" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
+        <range start1="26" end1="30" start2="60" end2="63" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="31" end1="31" start2="64" end2="66" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="35" end1="35" start2="70" end2="108" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="39" end1="39" start2="112" end2="141" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
+      </ranges>
+    </file>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -36,8 +58,13 @@
     "Python.template.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Dev",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "editor.preferences.completion"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -73,8 +100,17 @@
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sol" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ProjetAlgoRO$generate_model.coverage" NAME="generate_model Coverage Results" MODIFIED="1712248815052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
