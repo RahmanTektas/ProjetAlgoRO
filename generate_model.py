@@ -14,6 +14,7 @@ class ModelGenerator:
         self.dest_demands = {}
         self.source = []
         self.source_capacities = {}
+        self.intermediate_nodes = []
 
     def generate_model(self):
         self.parse_instance_file(self.instance_file)
@@ -29,12 +30,14 @@ class ModelGenerator:
             self.nb_nodes = int((file.readline().strip().split(" ")[1]))
 
             edges = {}
-
+            self.intermediate_nodes.extend([i for i in range(self.nb_nodes)])
             for line in file:
+                #print([i for i in range(self.nb_nodes)])
                 self.extract_edge_info(file, line)
                 self.extract_source_info(file, line)
                 self.extract_dest_info(file, line)
 
+        print(self.intermediate_nodes)
 
 
     def extract_edge_info(self, file, line):
@@ -64,6 +67,7 @@ class ModelGenerator:
             file.write("SUBJECT TO\n")
             self.write_source_constraints_in_file(file)
             self.write_destination_constraints_in_file(file)
+            self.write_intermediate_constraints_in_file(file)
 
             file.write("BINARY\n")
 
@@ -76,8 +80,12 @@ class ModelGenerator:
             for edge in self.edges:
                 if edge.startswith(source + "_"):  # If the edge ends in 'dest'
                     edge_end_node = edge.split("_")[1]
-                    constraint += "x_" + str(source) + "_" + str(edge_end_node) + " + "
-            constraint = constraint[:len(constraint) - 3]
+                    constraint += " + x_" + str(source) + "_" + str(edge_end_node)
+                elif edge.endswith("_" + source):
+                    # Soustraire ce que le noeud source reçoit (car il peut aussi agir en tant que noeud intermédiaire)
+                    edge_start_node = edge.split("_")[0]
+                    constraint += " - x_" + str(edge_start_node) + "_" + str(source)
+            #constraint = constraint[:len(constraint) - 3]
             constraint += " <= "
             constraint += str(self.source_capacities[source])
             constraint += "\n"
@@ -91,13 +99,36 @@ class ModelGenerator:
             for edge in self.edges:
                 if edge.endswith("_" + dest):  # If the edge ends in 'dest'
                     edge_start_node = edge.split("_")[0]
-                    constraint += "x_" + str(edge_start_node) + "_" + str(dest) + " + "
-            constraint = constraint[:len(constraint) - 3]
+                    constraint += " + x_" + str(edge_start_node) + "_" + str(dest)
+                elif edge.startswith(dest + "_"):
+                    # Soustraire ce que le noeud destination redonne (agit en tant que noeud intermédiaire)
+                    edge_end_node = edge.split("_")[1]
+                    constraint += " - x_" + str(dest) + "_" + str(edge_end_node)
+            #constraint = constraint[:len(constraint) - 3]
             constraint += " = "
             constraint += str(self.dest_demands[dest])
             constraint += "\n"
             dest_constraints += constraint
         file.write(dest_constraints)
+
+    """Tout noeud intermédiaire doit redonner tout ce qu'il recoit (flux entrant = flux sortant)"""
+    def write_intermediate_constraints_in_file(self, file):
+        constraint = "\n"
+        for inter_node in self.intermediate_nodes:
+            constraint = "\tc_inter_" + str(inter_node) + ": "
+
+            for edge in self.edges:
+                if edge.startswith(str(inter_node) + "_"): # Si le noeud intermediaire est la source (il donne)
+                    edge_end_node = edge.split("_")[1]
+                    constraint += " - x_" + str(inter_node) + "_" + str(edge_end_node)
+                elif edge.endswith("_" + str(inter_node)):     # Si le noeud intermediaire est la destination
+                    edge_start_node = edge.split("_")[0]
+                    constraint += " + x_" + str(edge_start_node) + "_" + str(inter_node)
+            constraint += " = 0"
+            constraint += "\n"
+            file.write(constraint)
+
+
 
     def write_objective_in_file(self, file):
         file.write("MINIMIZE\n")
@@ -117,6 +148,7 @@ class ModelGenerator:
             for _ in range(nb_source):
                 source_info = next(file).strip().split()
                 source_id = source_info[0]
+                self.intermediate_nodes.remove(int(source_id))
                 self.source.append(source_id)
                 source_capacity = 0
                 for i in range(1, len(source_info)):
@@ -132,12 +164,14 @@ class ModelGenerator:
             for _ in range(nb_dest):
                 dest_info = next(file).strip().split()
                 dest_id = dest_info[0]
+                self.intermediate_nodes.remove(int(dest_id))
                 self.dest.append(dest_id)
                 dest_demand = 0
                 for i in range(1, len(dest_info)):
                     dest_demand += int(dest_info[i])
                 self.dest_demands[dest_id] = dest_demand
-                #print("Demand = " + str(dest_demand))
+
+
 
 
 def main():

@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ProjetAlgoRO.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ProjetAlgoRO.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/20_2_nonvalidly_0.lp" beforeDir="false" afterPath="$PROJECT_DIR$/20_2_nonvalidly_0.lp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/20_2_nonvalidly_0.sol" beforeDir="false" afterPath="$PROJECT_DIR$/20_2_nonvalidly_0.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generate_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_model.py" afterDir="false" />
     </list>
     <list id="23eb3d33-bce9-4c28-b6b1-b713671326de" name="Changes by Rahman" comment="">
@@ -32,13 +31,17 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/generate_model.py">
       <ranges>
-        <range start1="10" end1="10" start2="10" end2="16" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
-        <range start1="20" end1="21" start2="26" end2="27" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
-        <range start1="22" end1="23" start2="28" end2="57" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
-        <range start1="26" end1="30" start2="60" end2="63" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
-        <range start1="31" end1="31" start2="64" end2="66" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
-        <range start1="35" end1="35" start2="70" end2="108" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
-        <range start1="39" end1="39" start2="112" end2="141" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
+        <range start1="16" end1="16" start2="16" end2="17" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
+        <range start1="31" end1="32" start2="32" end2="33" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="33" end1="33" start2="34" end2="35" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="37" end1="37" start2="39" end2="40" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
+        <range start1="66" end1="66" start2="69" end2="70" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="78" end1="80" start2="82" end2="88" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="93" end1="95" start2="101" end2="107" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="100" end1="100" start2="112" end2="131" changelist="23eb3d33-bce9-4c28-b6b1-b713671326de" />
+        <range start1="119" end1="119" start2="150" end2="151" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="134" end1="134" start2="166" end2="167" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
+        <range start1="139" end1="140" start2="172" end2="174" changelist="58068316-b4d3-4a2e-ad40-a44c1c6e9fe2" />
       </ranges>
     </file>
   </component>
@@ -64,7 +67,9 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "editor.preferences.completion"
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.completion",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -76,7 +81,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -88,6 +94,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1711795342765</updated>
+      <workItem from="1712927022560" duration="4616000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -111,6 +118,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjetAlgoRO$generate_model.coverage" NAME="generate_model Coverage Results" MODIFIED="1712248815052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjetAlgoRO$generate_model.coverage" NAME="generate_model Coverage Results" MODIFIED="1712930616796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
