@@ -21,7 +21,6 @@ class AggregatedModelGenerator(ModelGenerator):
                 cost_avg /= self.nb_items
                 self.edges.append(start + "_" + end)
                 self.edges_cost[start + "_" + end] = cost_avg
-                #print("cost_avg = ", cost_avg)
 
     def extract_source_info(self, file, line):
         if line.startswith("SOURCES"):
@@ -50,6 +49,14 @@ class AggregatedModelGenerator(ModelGenerator):
                 for i in range(1, len(dest_info)):
                     dest_demand += int(dest_info[i])
                 self.dest_demands[dest_id] = dest_demand
+
+    def write_objective_in_file(self, file):
+        file.write("MINIMIZE\n")
+        objective = "\tobj: "
+        for edge in self.edges:
+            objective += str(self.edges_cost[edge]) + " x_" + str(edge) + " + "
+        objective = objective[:len(objective) - 2] + "\n"
+        file.write(objective)
 
     def write_source_constraints_in_file(self, file):
         source_constraints = ""
@@ -90,12 +97,9 @@ class AggregatedModelGenerator(ModelGenerator):
         file.write(dest_constraints)
 
     """Tout noeud intermédiaire doit redonner tout ce qu'il recoit (flux entrant = flux sortant)"""
-
     def write_intermediate_constraints_in_file(self, file):
-        constraint = "\n"
         for inter_node in self.intermediate_nodes:
             constraint = "\tc_inter_" + str(inter_node) + ": "
-
             for edge in self.edges:
                 if edge.startswith(str(inter_node) + "_"):  # Si le noeud intermediaire est la source (il donne)
                     edge_end_node = edge.split("_")[1]
@@ -106,11 +110,3 @@ class AggregatedModelGenerator(ModelGenerator):
             constraint += " = 0"
             constraint += "\n"
             file.write(constraint)
-
-    def write_objective_in_file(self, file):
-        file.write("MINIMIZE\n")
-        objective = "\tobj: "
-        for edge in self.edges:
-            objective += str(self.edges_cost[edge]) + " x_" + str(edge) + " + "
-        objective = objective[:len(objective) - 2] + "\n"
-        file.write(objective)

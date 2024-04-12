@@ -3,6 +3,7 @@ from exceptions.IncorrectFormatError import IncorrectFormatError
 from AggregatedModelGenerator import AggregatedModelGenerator
 from DisaggregatedModelGenerator import DisaggregatedModelGenerator
 
+
 def main():
     try:
         if len(sys.argv) != 3:

@@ -29,6 +29,10 @@ class ModelGenerator(ABC):
         pass
 
     @abstractmethod
+    def write_objective_in_file(self, file):
+        pass
+
+    @abstractmethod
     def write_source_constraints_in_file(self, file):
         pass
 
@@ -38,10 +42,6 @@ class ModelGenerator(ABC):
 
     @abstractmethod
     def write_intermediate_constraints_in_file(self, file):
-        pass
-
-    @abstractmethod
-    def write_objective_in_file(self, file):
         pass
 
     def parse_instance_file(self, instance_file):
