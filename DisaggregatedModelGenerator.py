@@ -46,8 +46,13 @@ class DisaggregatedModelGenerator(ModelGenerator):
         objective = "\tobj: "
         for edge in self.edges_cost:
             for item in range(self.nb_items):
-                objective += str(self.edges_cost[edge][item]) + " x_" + edge + "_" + str(item) + " + "
-        objective = objective[:len(objective) - 2] + "\n"
+                if int(self.edges_cost[edge][item]) < 0: # So that we don't have syntax error '+ -'
+                    objective += str(self.edges_cost[edge][item]) + " x_" + edge + "_" + str(item)
+                else:
+                    objective += " + " + str(self.edges_cost[edge][item]) + " x_" + edge + "_" + str(item)
+
+        objective = objective[:len(objective)] + "\n"
+
         file.write(objective)
 
     def write_source_constraints_in_file(self, file):
