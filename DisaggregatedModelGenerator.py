@@ -12,8 +12,8 @@ class DisaggregatedModelGenerator(ModelGenerator):
                 costs = []
                 for i in range(3, len(edge_info)):
                     costs.append(edge_info[i])
-                self.edges.append(start + "_" + end)
-                self.edges_cost[start + "_" + end] = costs
+                self.edges.append(start + "_" + edge_id + "_" + end)
+                self.edges_cost[start + "_" + edge_id + "_" + end] = costs
 
     def extract_source_info(self, file, line):
         if line.startswith("SOURCES"):
@@ -62,12 +62,10 @@ class DisaggregatedModelGenerator(ModelGenerator):
                 constraint = "\tc_source_" + source + "_item_" + str(item) + ": "
                 for edge in self.edges:
                     if edge.startswith(source + "_"):  # If the edge ends in 'dest'
-                        edge_end_node = edge.split("_")[1]
-                        constraint += " + x_" + str(source) + "_" + str(edge_end_node) + "_" + str(item)
+                        constraint += " + x_" + edge + "_" + str(item)
                     elif edge.endswith("_" + source):
                         # Soustraire ce que le noeud source reçoit (car il peut aussi agir en tant que noeud intermédiaire)
-                        edge_start_node = edge.split("_")[0]
-                        constraint += " - x_" + str(edge_start_node) + "_" + str(source) + "_" + str(item)
+                        constraint += " - x_" + edge + "_" + str(item)
                 constraint += " <= "
                 constraint += str(self.source_capacities[source][item])
                 constraint += "\n"
@@ -81,12 +79,10 @@ class DisaggregatedModelGenerator(ModelGenerator):
                 constraint = "\tc_dest_" + dest + "_item_" + str(item) + ": "
                 for edge in self.edges:
                     if edge.endswith("_" + dest):  # If the edge ends in 'dest'
-                        edge_start_node = edge.split("_")[0]
-                        constraint += " + x_" + str(edge_start_node) + "_" + str(dest) + "_" + str(item)
+                        constraint += " + x_" + edge + "_" + str(item)
                     elif edge.startswith(dest + "_"):
                         # Soustraire ce que le noeud destination redonne (agit en tant que noeud intermédiaire)
-                        edge_end_node = edge.split("_")[1]
-                        constraint += " - x_" + str(dest) + "_" + str(edge_end_node) + "_" + str(item)
+                        constraint += " - x_" + edge + "_" + str(item)
                 constraint += " = "
                 constraint += str(self.dest_demands[dest][item])
                 constraint += "\n"
@@ -101,11 +97,9 @@ class DisaggregatedModelGenerator(ModelGenerator):
                 constraint = "\tc_inter_" + str(inter_node) + "_item_" + str(item) + ": "
                 for edge in self.edges:
                     if edge.startswith(str(inter_node) + "_"):  # Si le noeud intermediaire est la source (il donne)
-                        edge_end_node = edge.split("_")[1]
-                        constraint += " - x_" + str(inter_node) + "_" + str(edge_end_node) + "_" + str(item)
+                        constraint += " - x_" + edge + "_" + str(item)
                     elif edge.endswith("_" + str(inter_node)):  # Si le noeud intermediaire est la destination (il reçoit)
-                        edge_start_node = edge.split("_")[0]
-                        constraint += " + x_" + str(edge_start_node) + "_" + str(inter_node) + "_" + str(item)
+                        constraint += " + x_" + edge + "_" + str(item)
                 constraint += " = 0"
                 constraint += "\n"
                 file.write(constraint)

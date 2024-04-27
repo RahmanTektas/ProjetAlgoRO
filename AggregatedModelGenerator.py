@@ -19,8 +19,8 @@ class AggregatedModelGenerator(ModelGenerator):
                 for cost in costs:
                     cost_avg += int(cost)
                 cost_avg /= self.nb_items
-                self.edges.append(start + "_" + end)
-                self.edges_cost[start + "_" + end] = cost_avg
+                self.edges.append(start + "_" + edge_id + "_" + end)
+                self.edges_cost[start + "_" + edge_id + "_" + end] = cost_avg
 
     def extract_source_info(self, file, line):
         if line.startswith("SOURCES"):
@@ -54,8 +54,11 @@ class AggregatedModelGenerator(ModelGenerator):
         file.write("MINIMIZE\n")
         objective = "\tobj: "
         for edge in self.edges:
-            objective += str(self.edges_cost[edge]) + " x_" + str(edge) + " + "
-        objective = objective[:len(objective) - 2] + "\n"
+            if self.edges_cost[edge] < 0:
+                objective += str(self.edges_cost[edge]) + " x_" + str(edge)
+            else:
+                objective += " + " + str(self.edges_cost[edge]) + " x_" + str(edge)
+        objective = objective[:len(objective)] + "\n"
         file.write(objective)
 
     def write_source_constraints_in_file(self, file):
@@ -64,12 +67,10 @@ class AggregatedModelGenerator(ModelGenerator):
             constraint = "\tc_source_" + source + ": "
             for edge in self.edges:
                 if edge.startswith(source + "_"):  # If the edge ends in 'dest'
-                    edge_end_node = edge.split("_")[1]
-                    constraint += " + x_" + str(source) + "_" + str(edge_end_node)
+                    constraint += " + x_" + edge
                 elif edge.endswith("_" + source):
                     # Soustraire ce que le noeud source reçoit (car il peut aussi agir en tant que noeud intermédiaire)
-                    edge_start_node = edge.split("_")[0]
-                    constraint += " - x_" + str(edge_start_node) + "_" + str(source)
+                    constraint += " - x_" + edge
             #constraint = constraint[:len(constraint) - 3]
             constraint += " <= "
             constraint += str(self.source_capacities[source])
@@ -83,12 +84,10 @@ class AggregatedModelGenerator(ModelGenerator):
             constraint = "\tc_dest_" + dest + ": "
             for edge in self.edges:
                 if edge.endswith("_" + dest):  # If the edge ends in 'dest'
-                    edge_start_node = edge.split("_")[0]
-                    constraint += " + x_" + str(edge_start_node) + "_" + str(dest)
+                    constraint += " + x_" + edge
                 elif edge.startswith(dest + "_"):
                     # Soustraire ce que le noeud destination redonne (agit en tant que noeud intermédiaire)
-                    edge_end_node = edge.split("_")[1]
-                    constraint += " - x_" + str(dest) + "_" + str(edge_end_node)
+                    constraint += " - x_" + edge
             #constraint = constraint[:len(constraint) - 3]
             constraint += " = "
             constraint += str(self.dest_demands[dest])
@@ -102,11 +101,9 @@ class AggregatedModelGenerator(ModelGenerator):
             constraint = "\tc_inter_" + str(inter_node) + ": "
             for edge in self.edges:
                 if edge.startswith(str(inter_node) + "_"):  # Si le noeud intermediaire est la source (il donne)
-                    edge_end_node = edge.split("_")[1]
-                    constraint += " - x_" + str(inter_node) + "_" + str(edge_end_node)
+                    constraint += " - x_" + edge
                 elif edge.endswith("_" + str(inter_node)):  # Si le noeud intermediaire est la destination
-                    edge_start_node = edge.split("_")[0]
-                    constraint += " + x_" + str(edge_start_node) + "_" + str(inter_node)
+                    constraint += " + x_" + edge
             constraint += " = 0"
             constraint += "\n"
             file.write(constraint)
