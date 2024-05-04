@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 from aggregated_model_generator import AggregatedModelGenerator
 from disaggregated_model_generator import DisaggregatedModelGenerator
@@ -13,10 +14,16 @@ class SolutionGenerator:
     sol_output_folder = 'solutions/'
     # List all files in the folder
     files = os.listdir(instances_folder_path)
-    def __init__(self, model_type):
+    def __init__(self, model_type, timer):
         self.model_type = model_type
+        self.timer = timer
+        self.duration_timer = 600
 
     def generate_solution(self):
+        # Empty the linearPrograms folder
+        self.empty_folder(self.lp_output_folder)
+        # Empty the solutions folder
+        self.empty_folder(self.sol_output_folder)
 
         # Iterate over each file in the folder
         for file_name in self.files:
@@ -39,8 +46,29 @@ class SolutionGenerator:
                 print(sol_file)
 
                 # Run glpsol to generate the solution file
-                subprocess.run(["glpsol", "--lp", lp_file, "-o", sol_file])
+                glp_command = ["glpsol", "--lp", lp_file, "-o", sol_file]
+                if self.timer:
+                    glp_command.append("--tmlim " + str(self.duration_timer))  #600 billions nns = 10 m
+                print(glp_command)
+                #subprocess.run(["glpsol", "--lp", lp_file, "-o", sol_file])
+                glpsol_output = subprocess.run(["glpsol", "--lp", lp_file, "-o", sol_file], capture_output=True,
+                                               text=True).stdout
+
+                # Extract and print the time used
+                time_used_index = glpsol_output.find("Time used:")
+                if time_used_index != -1:
+                    time_used = glpsol_output[time_used_index:].splitlines()[0].strip()
+                    print(time_used)
+
+    def empty_folder(self, folder):
+        for file in os.listdir(folder):
+            file_path = os.path.join(folder, file)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+            except Exception as e:
+                print(e)
 
 
-solution_generatior = SolutionGenerator(1)
+solution_generatior = SolutionGenerator(sys.argv[1], False)
 solution_generatior.generate_solution()
