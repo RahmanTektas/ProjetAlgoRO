@@ -1,7 +1,7 @@
 import sys
 from exceptions.IncorrectFormatError import IncorrectFormatError
-from AggregatedModelGenerator import AggregatedModelGenerator
-from DisaggregatedModelGenerator import DisaggregatedModelGenerator
+from aggregated_model_generator import AggregatedModelGenerator
+from disaggregated_model_generator import DisaggregatedModelGenerator
 
 
 def main():

@@ -1,4 +1,4 @@
-from ModelGeneratorInterface import ModelGenerator
+from model_generator_interface import ModelGenerator
 
 
 class DisaggregatedModelGenerator(ModelGenerator):

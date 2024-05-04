@@ -1,9 +1,6 @@
-from ModelGeneratorInterface import ModelGenerator
+from model_generator_interface import ModelGenerator
 
 class AggregatedModelGenerator(ModelGenerator):
-    def __init__(self, instance_file_name, model_type):
-        super().__init__(instance_file_name, model_type)
-
     def extract_edge_info(self, file, line):
         if line.startswith("EDGES"):
             nb_edges = int(line.split()[1])
