@@ -1,5 +1,6 @@
 from model_generator_interface import ModelGenerator
 
+
 class AggregatedModelGenerator(ModelGenerator):
     def extract_edge_info(self, file, line):
         if line.startswith("EDGES"):

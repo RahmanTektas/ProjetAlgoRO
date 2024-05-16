@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class ModelGenerator(ABC):
 
-    def __init__(self, instance_file_name, model_type, output_folder):
+    def __init__(self, instance_file_name, model_type):
         self.instance_file = instance_file_name
         self.model_type = model_type
         self.nb_items = 0
@@ -15,7 +15,7 @@ class ModelGenerator(ABC):
         self.source = []
         self.source_capacities = {}
         self.intermediate_nodes = []
-        self.output_folder = output_folder
+        self.output_folder = "output"
 
     @abstractmethod
     def extract_edge_info(self, file, line):
@@ -62,7 +62,7 @@ class ModelGenerator(ABC):
 
     def generate_model(self):
         self.parse_instance_file(self.instance_file)
-        with open(self.output_folder + self.instance_file + "_" + str(self.model_type) + ".lp", "w") as file:
+        with open(self.output_folder + "/" + self.instance_file + "_" + str(self.model_type) + ".lp", "w") as file:
             # Objective
             self.write_objective_in_file(file)
             # Constraints
