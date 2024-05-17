@@ -15,7 +15,8 @@ class ModelGenerator(ABC):
         self.source = []
         self.source_capacities = {}
         self.intermediate_nodes = []
-        self.output_folder = "output"
+        self.output_folder = "."  # The output will be the current directory
+        self.instances_folder = "."  # Searches in the current directory for instances
 
     @abstractmethod
     def extract_edge_info(self, file, line):
@@ -46,7 +47,7 @@ class ModelGenerator(ABC):
         pass
 
     def parse_instance_file(self, instance_file):
-        with open("instances/" + instance_file + ".txt", "r") as file:
+        with open(self.instances_folder + "/" + instance_file + ".txt", "r") as file:
             self.get_file_info(file)
             self.intermediate_nodes.extend([i for i in range(self.nb_nodes)])
             for line in file:
